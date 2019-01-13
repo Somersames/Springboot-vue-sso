@@ -1,6 +1,5 @@
 package somersames.intercept;
 
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import somersames.exception.TokenVaildException;
@@ -19,7 +18,7 @@ public class InterceptConfig  implements HandlerInterceptor{
         if("OPTIONS".equals(request.getMethod())){
             return true;
         }
-        if(request.getRequestURI().contains("api/app1/query")){
+        if(request.getRequestURI().contains("app1/query")){
             return true;
         }
         Cookie[] token = request.getCookies();

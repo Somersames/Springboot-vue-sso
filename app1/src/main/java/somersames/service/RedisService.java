@@ -16,7 +16,7 @@ public class RedisService {
     RedisTemplate<String,UserLoginInfo> redisTemplate;
 
     public UserLoginInfo getUserLoginInfobyId(String id){
-        return redisTemplate.opsForValue().get("qwrwqrwqrqwrqr");
+        return redisTemplate.opsForValue().get(id);
     }
 
 

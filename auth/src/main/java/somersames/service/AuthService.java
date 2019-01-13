@@ -6,6 +6,7 @@ import somersames.dao.UserLoginDao;
 import somersames.entity.UserInfo;
 import somersames.entity.UserLoginInfo;
 import somersames.util.JWTUtil;
+import somersames.util.MD5Util;
 
 /**
  * @author szh
@@ -23,18 +24,22 @@ public class AuthService {
     @Autowired
     JWTUtil jwtUtil;
 
+    @Autowired
+    MD5Util md5Util;
+
     public String validUser(UserInfo userInfo,String from){
         UserInfo user = userLoginDao.validUserInfo(userInfo);
         if(user == null){
             return null;
         }else{
-            String token = jwtUtil.createJWT(user.getUserId());
+//            String token = jwtUtil.createJWT(user.getUserId());
+            String token = md5Util.md5Password(user.getUserId());
             UserLoginInfo userLoginInfo = redisService.getUserInfoById(token);
             if(userLoginInfo != null){
-                return userLoginInfo.getUserId();
+                return token;
             }
-            redisService.saveUserInfoToRedis(user,from);
-            return user.getUserId();
+            redisService.saveUserInfoToRedis(user,from,token);
+            return token;
         }
     }
 }

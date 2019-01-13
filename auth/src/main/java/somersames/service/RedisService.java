@@ -19,14 +19,11 @@ public class RedisService {
     @Resource
     RedisTemplate<String,UserLoginInfo> redisTemplate;
 
-    @Autowired
-    JWTUtil jwtUtil;
-    public void saveUserInfoToRedis(UserInfo userInfo,String from){
+    public void saveUserInfoToRedis(UserInfo userInfo,String from,String token){
         UserLoginInfo userLoginInfo = new UserLoginInfo();
         userLoginInfo.setUserId(userInfo.getUserId());
         userLoginInfo.setLoginFrom(from);
         userLoginInfo.setLoginTime(new Date());
-        String token = jwtUtil.createJWT(userLoginInfo.getUserId());
         redisTemplate.opsForValue().set(token,userLoginInfo);
     }
 
