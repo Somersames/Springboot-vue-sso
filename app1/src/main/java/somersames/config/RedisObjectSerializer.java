@@ -27,6 +27,7 @@ public class RedisObjectSerializer implements RedisSerializer<Object> {
         if (bytes == null || bytes.length ==0) {
             return null;
         }
+
         try {
             return deserializer.convert(bytes);
         } catch (Exception ex) {

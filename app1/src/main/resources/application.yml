@@ -1,0 +1,26 @@
+
+server:
+  port: 8083
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: sso-app1
+  datasource:
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/sso_app1?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      pool:
+        max-active: 8
+        max-wait: -1
+        min-idle: 0
+        max-idle: 8
+      timeout: 0

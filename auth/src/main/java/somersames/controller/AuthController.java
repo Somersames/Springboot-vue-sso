@@ -11,6 +11,9 @@ import somersames.entity.UserInfo;
 import somersames.service.AuthService;
 import somersames.util.ResponseUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author szh
  * @create 2019-01-13 12:27
@@ -23,8 +26,9 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    @CrossOrigin("http://localhost:8091")
     @PostMapping(value = ApiConstant.AUTH+"/{from}")
-    public ResponseUtils<String> saveUserInfo( @PathVariable("from") String from, @RequestBody UserInfo userInfo){
+    public ResponseUtils<String> saveUserInfo(@PathVariable("from") String from, @RequestBody UserInfo userInfo, HttpServletResponse response){
         ResponseUtils<String> resp =new ResponseUtils<String>();
         String userId = authService.validUser(userInfo,from);
         if(StringUtils.isEmpty(userId)){
@@ -33,7 +37,14 @@ public class AuthController {
         }else{
             ResponseEnum.SUCCESS.setResponse(resp);
             resp.setData(userId);
+            response.addCookie(new Cookie("token",userId));
             return resp;
         }
+    }
+    @GetMapping(value = ApiConstant.AUTH)
+    public ResponseUtils<String> saveUserInfo(){
+        ResponseUtils<String> resp =new ResponseUtils<String>();
+        ResponseEnum.SUCCESS.setResponse(resp);
+        return resp;
     }
 }
