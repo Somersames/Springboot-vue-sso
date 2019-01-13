@@ -1,18 +1,18 @@
 
 server:
-  port: 8082
+  port: 8085
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
 spring:
   application:
-    name: sso-auto
+    name: sso-app2
   datasource:
       username: root
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/sso_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      url: jdbc:mysql://localhost:3306/sso_app2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
       type: com.alibaba.druid.pool.DruidDataSource
   redis:
       host: localhost
@@ -24,7 +24,3 @@ spring:
         min-idle: 0
         max-idle: 8
       timeout: 0
-
-
-jwt:
-  securityKey: somersames

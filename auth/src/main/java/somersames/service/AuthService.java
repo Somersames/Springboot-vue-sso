@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import somersames.dao.UserLoginDao;
 import somersames.entity.UserInfo;
 import somersames.entity.UserLoginInfo;
+import somersames.util.JWTUtil;
 
 /**
  * @author szh
@@ -19,12 +20,16 @@ public class AuthService {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    JWTUtil jwtUtil;
+
     public String validUser(UserInfo userInfo,String from){
         UserInfo user = userLoginDao.validUserInfo(userInfo);
         if(user == null){
             return null;
         }else{
-            UserLoginInfo userLoginInfo = redisService.getUserInfoById(user.getUserId());
+            String token = jwtUtil.createJWT(user.getUserId());
+            UserLoginInfo userLoginInfo = redisService.getUserInfoById(token);
             if(userLoginInfo != null){
                 return userLoginInfo.getUserId();
             }

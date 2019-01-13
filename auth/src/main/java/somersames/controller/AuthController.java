@@ -26,7 +26,7 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @CrossOrigin("http://localhost:8091")
+    @CrossOrigin("*")
     @PostMapping(value = ApiConstant.AUTH+"/{from}")
     public ResponseUtils<String> saveUserInfo(@PathVariable("from") String from, @RequestBody UserInfo userInfo, HttpServletResponse response){
         ResponseUtils<String> resp =new ResponseUtils<String>();
